@@ -1,0 +1,24 @@
+
+# Maven generated files
+**/target/
+
+# Compiled Java files
+**/*.class
+
+# IDE settings
+**/.vscode/
+**/.idea/
+**/.settings/
+**/.classpath
+**/.project
+
+# Logs
+**/*.log
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
