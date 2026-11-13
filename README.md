@@ -208,11 +208,11 @@ Each concept is connected to a maximum of three practical scenarios.
 9. Handle invalid amounts and other exceptional conditions.
 10. Write unit tests using JUnit 5.
 
-### Suggested Project Structure
+## 📁 Suggested Repository Structure
 
+```
 45-days-to-senior-java-developer/
 │
-├── .git/
 ├── .gitignore
 ├── README.md
 │
@@ -230,26 +230,25 @@ Each concept is connected to a maximum of three practical scenarios.
 ├── days/
 │   ├── day-01-oops/
 │   │   └── payment-management-system/
-│   │       ├── .gitignore
-│   │       ├── pom.xml
 │   │       ├── README.md
-│   │       │
+│   │       ├── pom.xml
+│   │       ├── resources/
 │   │       └── src/
 │   │           ├── main/
-│   │           │   └── java/com/interview/
-│   │           │       ├── account/
-│   │           │       ├── employee/
-│   │           │       ├── notification/
-│   │           │       └── payment/
+│   │           │   └── java/
+│   │           │       └── com/interview/
+│   │           │           ├── account/
+│   │           │           ├── employee/
+│   │           │           ├── notification/
+│   │           │           └── payment/
 │   │           │
 │   │           └── test/
-│   │               ├── java/com/interview/
-│   │               │   ├── payment/
-│   │               │   ├── account/
-│   │               │   ├── employee/
-│   │               │   └── notification/
-│   │               │
-│   │               └── resources/
+│   │               └── java/
+│   │                   └── com/interview/
+│   │                       ├── account/
+│   │                       ├── employee/
+│   │                       ├── notification/
+│   │                       └── payment/
 │   │
 │   ├── day-02-strings/
 │   │   └── string-puzzle-lab/
@@ -258,7 +257,7 @@ Each concept is connected to a maximum of three practical scenarios.
 │
 └── resources/
     └── diagrams/
-
+```
 ### Expected Deliverables
 
 - Working Java application.
