@@ -1,23 +1,18 @@
+
 package com.interview.payment;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class PaymentService {
 
-    public static void main(String[] args) {
+    private final Payment payment;
 
-        Payment payment = new UpiPayment();
+    public PaymentService(Payment payment) {
+        this.payment = Objects.requireNonNull(payment);
+    }
 
-        payment.processPayment(new BigDecimal("100.00"));
-
-        payment = new CardPayment();
-        payment.processPayment(new BigDecimal("3300.00"));
-
-        payment = new NetBankingPayment();
-        payment.processPayment(new BigDecimal("40000.00"));
-
-        payment = new WalletPayment();
-        payment.processPayment(new BigDecimal("1200.00"));
-
+    public void processPayment(BigDecimal amount) {
+        payment.processPayment(amount);
     }
 }
