@@ -1,53 +1,135 @@
 # Day 1 – Learner Progress
 
-## Topic
-Core Java OOP Fundamentals
+**45 Days to Senior Java Developer | Phase 1: Core Java Foundations**
+
+## Day and Learning Record
+
+- **Date:** Sunday, 15 November 2026
+- **Milestone 1 completion checkpoint:** 05:19 AM IST
+- **Project:** Payment Management System
+- **Day 1 status:** In progress
 
 ## Quiz
+
 - Questions: 15
 - Correct: 15
 - Score: 100%
 - Status: Passed
-- Quiz repetition: Not required; use targeted revision if a practical gap appears.
+- Quiz repetition: Not required as a separate drill; revisit concepts during practical milestones whenever they naturally recur.
 
-## Practical Assignment
-Payment Management System
+## Milestone 1 – Payment Processing
+
+**Status: COMPLETED**
+
+- **Completion date:** Sunday, 15 November 2026
+- **Recorded time:** 05:19 AM IST
 
 ### Implemented source files
+
 - `Payment.java` – defines the common `Payment` interface and `processPayment(BigDecimal amount)` contract.
 - `UpiPayment.java` – implements the payment contract for UPI.
 - `CardPayment.java` – implements the payment contract for card payments.
 - `NetBankingPayment.java` – implements the payment contract for net banking.
-- `WalletPayment.java` – implements the payment contract for wallet payments.
-- `PaymentService.java` – currently contains the application entry point and demonstrates all four implementations through a `Payment` reference.
+- `WalletPayment.java` – additional implementation of the payment contract.
+- `PaymentService.java` – receives a `Payment` dependency through constructor injection and delegates payment processing.
+- `PaymentApplication.java` – contains the application entry point and supplies the selected payment implementation.
+- `PaymentServiceTest.java` – contains JUnit 5 tests for the service.
 
-### Verification
-- Java 21 direct compilation and execution of the six submitted source files: verified in the assistant's review environment.
-- Payment method demonstrations: UPI, Card, Net Banking and Wallet were invoked.
-- Maven `clean compile` in the learner's Windows environment: pending.
-- JUnit 5 tests: not yet implemented or verified.
+### Concepts covered and revised
 
-## Concepts Demonstrated
-- **Interface-based abstraction:** all payment implementations follow the `Payment` contract.
-- **Method implementation and overriding:** each concrete class implements `processPayment(BigDecimal amount)` and uses `@Override`.
-- **Runtime polymorphism:** the same `Payment` reference is assigned UPI, Card, Net Banking and Wallet objects.
-- **Loose coupling at the call site:** the demonstration invokes the common interface method rather than implementation-specific methods.
-- **Open/Closed Principle discussion:** Wallet was added as another `Payment` implementation without changing the interface contract. The current `PaymentService` still directly instantiates each implementation, so the service design is not yet dependency-injected.
-- **Money representation:** the demonstration uses string-based `BigDecimal` constructors for the payment amounts.
+1. **Abstraction** – defined a common payment contract through the `Payment` interface.
+2. **Interfaces** – used one contract for multiple payment implementations.
+3. **Method implementation and overriding** – each payment class implements `processPayment` and uses `@Override`.
+4. **Runtime polymorphism** – used a `Payment` reference with different concrete payment objects.
+5. **Dynamic dispatch** – the invoked implementation is selected according to the actual object type at runtime.
+6. **Reference type vs. object type** – distinguished compile-time member access from the object's runtime implementation.
+7. **Loose coupling** – kept `PaymentService` dependent on the `Payment` abstraction.
+8. **Dependency Inversion Principle (DIP)** – the service depends on an abstraction rather than concrete payment classes.
+9. **Dependency Injection (DI)** – supplied the dependency from outside the service.
+10. **Constructor injection** – made the required `Payment` dependency available through the constructor.
+11. **Composition / HAS-A relationship** – `PaymentService` holds a `Payment` dependency.
+12. **Null validation** – used `Objects.requireNonNull` to reject a null dependency.
+13. **BigDecimal for monetary values** – used string-based construction to avoid first creating a binary floating-point value.
+14. **JUnit 5 unit testing** – tested service initialization, null rejection, delegation, and support for different implementations.
+15. **Lambda expressions and functional interfaces** – used test lambdas for the single-abstract-method `Payment` interface.
+16. **AtomicReference in tests** – used as a mutable holder to capture a value from a lambda; not as a concurrency demonstration.
+17. **Maven build and test lifecycle** – verified compilation and automated tests using Maven.
 
-## Interview Questions – One-Line Answers
-1. **Why use an interface for payment methods?** It defines a common contract so callers can work with different payment implementations through one abstraction.
-2. **What is runtime polymorphism?** An overridden instance method is selected at runtime according to the actual object type.
-3. **Why can one `Payment` reference hold UPI, Card, Net Banking and Wallet objects?** Each concrete class implements `Payment` and is assignment-compatible with a `Payment` reference.
-4. **Why is `UpiPayment ref = new CardPayment()` invalid?** `CardPayment` is not a subtype of `UpiPayment`, so the assignment fails compile-time type checking.
-5. **Can a `Payment` reference directly call a method declared only in `UpiPayment`?** No; member access is checked against the reference's compile-time type unless the reference is safely narrowed or cast.
-6. **What does `@Override` do?** It asks the compiler to verify that a method overrides or implements a supertype method.
-7. **What is the Open/Closed Principle?** A component should be open to extension but closed to unnecessary modification.
-8. **What is Dependency Inversion?** High-level policy should depend on abstractions rather than concrete implementation details.
-9. **What is constructor injection?** A dependency is supplied to an object through its constructor.
-10. **Why use `BigDecimal(String)` for money?** It creates a decimal value from the supplied decimal string without first introducing binary floating-point approximation.
+### Verification evidence
+
+Based on the learner's supplied terminal output:
+
+- `mvn clean compile`: **BUILD SUCCESS**; 7 main source files compiled.
+- `mvn clean test`: **BUILD SUCCESS**.
+- JUnit 5: **4 tests run, 0 failures, 0 errors, 0 skipped**.
+- Tests:
+  - `shouldInitializePaymentServiceWithValidDependency()`
+  - `shouldThrowExceptionWhenPaymentDependencyIsNull()`
+  - `shouldDelegatePaymentProcessingToInjectedPayment()`
+  - `shouldSupportDifferentPaymentImplementations()`
+
+These tests verify service dependency and delegation behaviour. They do not verify communication with a real payment gateway.
+
+### Git milestone record
+
+- **Commit:** `ff3182f`
+- **Message:** `feat: implement payment service constructor injection and unit tests`
+- **Commit date:** 15 November 2026
+- **Push status:** Learner supplied terminal output confirming `origin/main` points to this commit.
+- **Working tree:** Learner supplied terminal output showing a clean working tree.
+
+### Interview-ready one-line answers
+
+1. **Why use an interface for payment methods?** It defines a common contract so callers can work with different implementations through one abstraction.
+2. **What is runtime polymorphism?** An overridden instance method is selected at runtime according to the actual object's type.
+3. **What is Dependency Inversion?** High-level policy should depend on abstractions rather than concrete implementation details.
+4. **What is dependency injection?** A dependency is supplied to a component from outside rather than being created internally by that component.
+5. **What is constructor injection?** A dependency is supplied through the object's constructor.
+6. **Why use `BigDecimal(String)` for money?** It creates the decimal value from a string without first introducing binary floating-point approximation.
+
+## Milestone 2 – Banking and Account Management
+
+**Status: NOT STARTED**
+
+Planned focus:
+- Encapsulation using private fields.
+- Controlled access to account balance.
+- Deposit and withdrawal operations.
+- Input and business-rule validation.
+- Exception handling.
+- Maintaining a consistent account state.
+- Unit tests for valid and invalid account operations.
+
+## Milestone 3 – Employee and Manager Management
+
+**Status: NOT STARTED**
+
+Planned focus:
+- Inheritance.
+- Constructor usage and initialization.
+- Method overriding.
+- Runtime polymorphism where relevant.
+- Unit tests for employee/manager behaviour.
+
+## Remaining Day 1 Requirements
+
+- [ ] Implement `BankAccount` with private fields and validated operations.
+- [ ] Test deposit and withdrawal behaviour, including invalid cases.
+- [ ] Implement `Employee` and `Manager` inheritance.
+- [ ] Demonstrate method overriding.
+- [ ] Implement a `Notification` interface with a default method.
+- [ ] Demonstrate method overloading.
+- [ ] Add meaningful invalid-input and exceptional-condition handling across the project.
+- [x] Implement `PaymentService` using constructor injection.
+- [x] Separate application startup into `PaymentApplication`.
+- [x] Demonstrate Dependency Inversion in the payment service.
+- [x] Write and run JUnit 5 tests for the payment service.
+- [x] Run Maven `clean compile` and `clean test` in the learner's Windows environment.
+- [ ] Complete the full 100-point project review.
+- [ ] Explain all design decisions independently.
 
 ## Daily Technical Vocabulary
+
 | Term | Reusable industry meaning |
 |---|---|
 | Contract | A defined set of operations a component promises to provide. |
@@ -59,45 +141,21 @@ Payment Management System
 | Object type | The actual class of an object at runtime. |
 | Loose coupling | Designing components with fewer dependencies on implementation details. |
 | Extensibility | The ability to add capabilities with limited changes to existing code. |
+| Dependency Injection | Supplying a component's dependency from outside the component. |
 | Constructor injection | Supplying required dependencies through a constructor. |
 | Dependency Inversion Principle | Depending on abstractions rather than concrete implementation details. |
 | Compile-time type checking | Validation of type compatibility before program execution. |
+| Delegation | Forwarding a responsibility or operation to another object. |
+| Unit test | A focused automated test of a small unit of behaviour. |
 
-## Mastery Checklist
-- [x] Complete the 15-question OOP quiz (15/15)
-- [x] Implement the `Payment` abstraction
-- [x] Implement UPI payment
-- [x] Implement Card payment
-- [x] Implement Net Banking payment
-- [x] Add Wallet payment implementation
-- [x] Demonstrate runtime polymorphism across four payment implementations
-- [ ] Refactor `PaymentService` to use constructor injection
-- [ ] Separate application startup into `PaymentApplication`
-- [ ] Demonstrate Dependency Inversion in the refactored service
-- [ ] Apply encapsulation and validation in `BankAccount`
-- [ ] Demonstrate inheritance and overriding with `Employee` and `Manager`
-- [ ] Implement an interface default method
-- [ ] Demonstrate method overloading
-- [ ] Add meaningful exception handling
-- [ ] Write and run JUnit 5 tests
-- [ ] Explain all design decisions independently
-- [x] Complete Java 21 direct compilation and execution check for the submitted payment classes
-- [ ] Run Maven `clean compile` and `test` in the learner's Windows environment
+## Learning and Assessment Convention
 
-## Code Review
-- The `Payment` interface and four concrete payment implementations are structurally valid.
-- The six submitted Java source files passed the Java 21 direct compilation and execution check in the review environment.
-- `PaymentService` currently acts as the demonstration entry point and directly creates concrete payment objects. It is not yet the constructor-injected service.
-- Minor style improvements remain: normalize import spacing, blank lines and console-message wording across implementations.
-- The full 100-point project review is deferred until the service refactor, remaining OOP scenarios and tests are complete.
-
-## Knowledge Gaps / Next Actions
-1. Refactor `PaymentService` to hold a `private final Payment` dependency supplied through its constructor.
-2. Move application startup and payment implementation selection to `PaymentApplication`.
-3. Verify that the service depends only on the `Payment` abstraction.
-4. Add JUnit 5 tests for service delegation and relevant edge cases.
-5. Complete the account, employee and notification scenarios.
-6. Run Maven verification locally and record the actual output.
+- Repeated concepts are intentionally revisited when they appear in later milestones. Repetition is revision and deliberate practice, not unnecessary duplication.
+- Assessment work is labelled **Milestone 1, Milestone 2, Milestone 3**, and so on.
+- The project README retains the three business-scenario descriptions; learner progress records actual milestone work and evidence.
+- Work class by class. The learner implements in VS Code; code is reviewed before moving to the next class.
+- Do not count unrelated `RentCalculator.java` or `StudentRentCalculator.java` work as part of this Payment Management System.
 
 ## Completion Decision
-**In progress – payment implementation checkpoint passed the Java 21 direct compilation and execution check.** Day 1 is not complete. Constructor injection, practical Dependency Inversion verification, JUnit 5, remaining OOP scenarios and Maven verification remain pending.
+
+**Day 1 is in progress. Milestone 1 – Payment Processing is completed and verified.** Milestones 2 and 3, the Notification default-method and method-overloading requirements, remaining exception-handling work, and the final project review are still outstanding.
